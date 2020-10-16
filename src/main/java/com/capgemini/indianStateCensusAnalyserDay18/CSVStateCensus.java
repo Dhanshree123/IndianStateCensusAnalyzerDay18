@@ -19,6 +19,7 @@ public class CSVStateCensus {
 		}
 
 		checkDelimiter(csvFilePath);
+		checkHeader(csvFilePath);
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 			CsvToBeanBuilder<IndianCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -47,6 +48,22 @@ public class CSVStateCensus {
 					throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
 				}
 			}
+		} catch (NullPointerException | IOException e) {
+		}
+
+	}
+
+	public void checkHeader(String csvFilePath) throws CensusAnalyserException {
+		try {
+			BufferedReader br = Files.newBufferedReader(Paths.get(csvFilePath));
+			String FirstLine = br.readLine();
+			String[] columns = FirstLine.split(",");
+			boolean isCorrect = columns[0].equals("State") && columns[1].equals("Population")
+					&& columns[2].equals("AreaInSqKm") && columns[3].equals("DensityPerSqKm");
+			if (!isCorrect) {
+				throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_HEADER);
+			}
+
 		} catch (NullPointerException | IOException e) {
 		}
 
