@@ -75,6 +75,7 @@ public class CSVStateCensus {
 			throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		}
 
+		checkDelimiterStateCode(csvFilePath);
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 			CsvToBeanBuilder<IndianStateCodeCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -91,4 +92,20 @@ public class CSVStateCensus {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		}
 	}
+
+	public void checkDelimiterStateCode(String csvFilePath) throws CensusAnalyserException {
+		try {
+			BufferedReader br = Files.newBufferedReader(Paths.get(csvFilePath));
+			while (true) {
+				String line = br.readLine();
+				String[] Linecolumns = line.split(",");
+				if (Linecolumns.length < 2) {
+					throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
+				}
+			}
+		} catch (NullPointerException | IOException e) {
+		}
+
+	}
+
 }
