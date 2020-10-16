@@ -70,6 +70,10 @@ public class CSVStateCensus {
 	}
 
 	public int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException, IOException {
+		String[] csvFile = csvFilePath.split("[.]");
+		if (!csvFile[1].equals("csv")) {
+			throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
+		}
 
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -83,6 +87,8 @@ public class CSVStateCensus {
 			return numOfEntries;
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
+		} catch (IllegalStateException e) {
+			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		}
 	}
 }
