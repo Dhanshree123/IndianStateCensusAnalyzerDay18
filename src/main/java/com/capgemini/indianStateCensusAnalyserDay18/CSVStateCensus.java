@@ -12,15 +12,24 @@ import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVStateCensus {
 	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException, IOException {
-		Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-		CsvToBeanBuilder<IndianCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
-		csvToBeanBuilder.withType(IndianCensusCSV.class);
-		csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-		CsvToBean<IndianCensusCSV> csvToBean = csvToBeanBuilder.build();
-		Iterator<IndianCensusCSV> censusCsvIterator = csvToBean.iterator();
-		Iterable<IndianCensusCSV> csvIterable = () -> censusCsvIterator;
-		int numOfEntries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
-		return numOfEntries;
+		String[] csvFile = csvFilePath.split("[.]");
+		if (!csvFile[1].equals("csv")) {
+			throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
+		}
 
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+			CsvToBeanBuilder<IndianCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+			csvToBeanBuilder.withType(IndianCensusCSV.class);
+			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+			CsvToBean<IndianCensusCSV> csvToBean = csvToBeanBuilder.build();
+			Iterator<IndianCensusCSV> censusCsvIterator = csvToBean.iterator();
+			Iterable<IndianCensusCSV> csvIterable = () -> censusCsvIterator;
+			int numOfEntries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
+			return numOfEntries;
+
+		} catch (IOException e) {
+			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
+		}
 	}
 }
