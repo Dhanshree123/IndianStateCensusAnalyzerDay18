@@ -1,5 +1,6 @@
 package com.capgemini.indianStateCensusAnalyserDay18;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -17,6 +18,7 @@ public class CSVStateCensus {
 			throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		}
 
+		checkDelimiter(csvFilePath);
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 			CsvToBeanBuilder<IndianCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -33,5 +35,20 @@ public class CSVStateCensus {
 		} catch (IllegalStateException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		}
+	}
+
+	public void checkDelimiter(String csvFilePath) throws CensusAnalyserException {
+		try {
+			BufferedReader br = Files.newBufferedReader(Paths.get(csvFilePath));
+			while (true) {
+				String line = br.readLine();
+				String[] Linecolumns = line.split(",");
+				if (Linecolumns.length < 4) {
+					throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
+				}
+			}
+		} catch (NullPointerException | IOException e) {
+		}
+
 	}
 }
