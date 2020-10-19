@@ -12,7 +12,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVStateCensus {
-	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException, IOException {
+	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException, IOException, CSVException {
 		String[] csvFile = csvFilePath.split("[.]");
 		if (!csvFile[1].equals("csv")) {
 			throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
@@ -30,6 +30,8 @@ public class CSVStateCensus {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (IllegalStateException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
+		} catch (CSVException e) {
+			throw new CSVException(e.getMessage(), e.type);
 		}
 	}
 
@@ -64,7 +66,7 @@ public class CSVStateCensus {
 
 	}
 
-	public int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException, IOException {
+	public int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException, IOException, CSVException {
 		String[] csvFile = csvFilePath.split("[.]");
 		if (!csvFile[1].equals("csv")) {
 			throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
@@ -80,6 +82,8 @@ public class CSVStateCensus {
 			return this.getCount(censusCsvIterator);
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
+		} catch (CSVException e) {
+			throw new CSVException(e.getMessage(), e.type);
 		}
 	}
 

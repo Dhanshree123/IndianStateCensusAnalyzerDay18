@@ -30,6 +30,8 @@ public class CensusAnalyzerTest {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (CSVException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -43,6 +45,8 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (CSVException e) {
 			e.printStackTrace();
 		}
 	}
@@ -58,6 +62,8 @@ public class CensusAnalyzerTest {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (CSVException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -71,6 +77,8 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (CSVException e) {
 			e.printStackTrace();
 		}
 	}
@@ -86,6 +94,8 @@ public class CensusAnalyzerTest {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_HEADER);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (CSVException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -99,6 +109,8 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (CSVException e) {
 			e.printStackTrace();
 		}
 	}
@@ -114,6 +126,8 @@ public class CensusAnalyzerTest {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (CSVException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -127,6 +141,8 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (CSVException e) {
 			e.printStackTrace();
 		}
 	}
@@ -142,6 +158,8 @@ public class CensusAnalyzerTest {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (CSVException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -155,6 +173,8 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_HEADER);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (CSVException e) {
 			e.printStackTrace();
 		}
 	}
