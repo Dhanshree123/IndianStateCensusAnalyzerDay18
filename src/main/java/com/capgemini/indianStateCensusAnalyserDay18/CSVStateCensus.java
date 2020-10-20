@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
+import com.capgemini.openCSVBuilder.CSVBuilderFactory;
+import com.capgemini.openCSVBuilder.CSVException;
+import com.capgemini.openCSVBuilder.ICSVBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -83,7 +86,7 @@ public class CSVStateCensus {
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (CSVException e) {
-			throw new CSVException(e.getMessage(), e.type);
+			throw new CSVException(e.getMessage(), e.getExceptionType());
 		}
 	}
 

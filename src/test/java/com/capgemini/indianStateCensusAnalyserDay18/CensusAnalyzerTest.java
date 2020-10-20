@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.capgemini.openCSVBuilder.CSVException;
+
 public class CensusAnalyzerTest {
 	private static final String INDIA_CENSUS_CSV_FILE_PATH = "C:\\Users\\Admin\\eclipse-workspace\\IndianStateCensusAnalyserDay18\\StateCensusData.csv";
 	private static final String WRONG_FILE_PATH = "C:\\Users\\Admin\\eclipse-workspace\\IndianStateCensusAnalyserDay18\\StateCensus.csv";
@@ -27,11 +29,8 @@ public class CensusAnalyzerTest {
 			Assert.assertEquals(36, numOfRecords);
 
 		} catch (CensusAnalyserException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+		} catch (CSVException e) {
 		}
 	}
 
@@ -45,9 +44,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -61,9 +60,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -77,9 +76,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -93,9 +92,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_HEADER);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -107,11 +106,10 @@ public class CensusAnalyzerTest {
 			Assert.assertEquals(36, numOfRecords);
 
 		} catch (CensusAnalyserException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -125,9 +123,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -141,9 +139,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+
+		} catch (CSVException e) {
+
 		}
 	}
 
@@ -157,9 +155,9 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_DELIMITER_TYPE);
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		} catch (CSVException e) {
-			e.printStackTrace();
+
 		}
 	}
 
@@ -173,9 +171,7 @@ public class CensusAnalyzerTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_HEADER);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (CSVException e) {
-			e.printStackTrace();
+		} catch (CSVException e) {
 		}
 	}
 
