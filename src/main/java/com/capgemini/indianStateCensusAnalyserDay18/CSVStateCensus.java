@@ -1,20 +1,22 @@
 package com.capgemini.indianStateCensusAnalyserDay18;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.stream.StreamSupport;
+import java.util.List;
 
 import com.capgemini.openCSVBuilder.CSVBuilderFactory;
 import com.capgemini.openCSVBuilder.CSVException;
 import com.capgemini.openCSVBuilder.ICSVBuilder;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVStateCensus {
+
+	private List<IndianCensusCSV> indianCensusCSVList = null;
+	private List<IndianStateCodeCSV> indianStateCodeCSVList = null;
+
 	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException, IOException, CSVException {
 		String[] csvFile = csvFilePath.split("[.]");
 		if (!csvFile[1].equals("csv")) {
@@ -26,8 +28,8 @@ public class CSVStateCensus {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			Iterator<IndianCensusCSV> censusCsvIterator = csvBuilder.getCSVFileIterator(reader, IndianCensusCSV.class);
-			return this.getCount(censusCsvIterator);
+			indianCensusCSVList = csvBuilder.getCsvFileList(reader, IndianCensusCSV.class);
+			return indianCensusCSVList.size();
 
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
@@ -79,10 +81,9 @@ public class CSVStateCensus {
 		checkHeaderStateCode(csvFilePath);
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			Iterator<IndianStateCodeCSV> censusCsvIterator = csvBuilder.getCSVFileIterator(reader,
+			indianStateCodeCSVList = CSVBuilderFactory.createCSVBuilder().getCsvFileList(reader,
 					IndianStateCodeCSV.class);
-			return this.getCount(censusCsvIterator);
+			return indianStateCodeCSVList.size();
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
 		} catch (CSVException e) {
@@ -118,13 +119,6 @@ public class CSVStateCensus {
 		} catch (NullPointerException | IOException e) {
 		}
 
-	}
-
-	private <E> int getCount(Iterator<E> iterator) {
-		int numOfEntries = 0;
-		Iterable<E> csvIterable = () -> iterator;
-		numOfEntries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
-		return numOfEntries;
 	}
 
 }
