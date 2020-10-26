@@ -1,6 +1,7 @@
 package com.capgemini.indianStateCensusAnalyserDay18;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,8 +39,6 @@ public class CensusAnalyzerTest {
 	public void givenIndianCensusDataWithWrongFileShouldThrowException() {
 		try {
 			CSVStateCensus csvStateCensus = new CSVStateCensus();
-			ExpectedException exceptionRule = ExpectedException.none();
-			exceptionRule.expect(CensusAnalyserException.class);
 			csvStateCensus.loadIndiaCensusData(WRONG_FILE_PATH);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(e.getExceptionType(), CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
@@ -175,4 +174,13 @@ public class CensusAnalyzerTest {
 		}
 	}
 
+	@Test
+	public void givenIndianCensusDataWhenSortedShouldMatchResult() {
+		try {
+			CSVStateCensus csvStateCensus = new CSVStateCensus();
+			List<IndianCensusCSV> sortedList = csvStateCensus.sortAccordingToStateName(INDIA_CENSUS_CSV_FILE_PATH);
+			Assert.assertEquals("Andaman and Nicobar Islands", sortedList.get(0).state);
+		} catch (CSVException e) {
+		}
+	}
 }
