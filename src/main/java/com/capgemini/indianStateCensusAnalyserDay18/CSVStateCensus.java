@@ -157,4 +157,30 @@ public class CSVStateCensus {
 		return sortedList;
 	}
 
+	public List<IndianStateCodeCSV> sortAccordingToStateCode(String csvFilePath) throws CSVException {
+		Reader reader = null;
+		try {
+			reader = Files.newBufferedReader(Paths.get(csvFilePath));
+			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+			indianStateCodeCSVList = csvBuilder.getCsvFileList(reader, IndianStateCodeCSV.class);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		List<IndianStateCodeCSV> sortedList = indianStateCodeCSVList.stream()
+				.sorted((element1, element2) -> element1.stateCode.compareTo(element2.stateCode))
+				.collect(Collectors.toList());
+		Gson gson = new Gson();
+		String json = gson.toJson(sortedList);
+		FileWriter writer;
+
+		try {
+			writer = new FileWriter(JSON_FILE_SORT_STATE_CODE);
+			writer.write(json);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sortedList;
+	}
+
 }

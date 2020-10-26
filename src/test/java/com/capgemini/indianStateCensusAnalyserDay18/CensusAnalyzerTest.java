@@ -183,4 +183,15 @@ public class CensusAnalyzerTest {
 		} catch (CSVException e) {
 		}
 	}
+
+	@Test
+	public void givenIndianStateCodeDataWhenSortedShouldMatchResult() {
+		try {
+			CSVStateCensus csvStateCensus = new CSVStateCensus();
+			List<IndianStateCodeCSV> sortedList = csvStateCensus
+					.sortAccordingToStateCode(INDIA_STATE_CODE_CSV_FILE_PATH);
+			Assert.assertEquals("AN", sortedList.get(0).stateCode);
+		} catch (CSVException e) {
+		}
+	}
 }
