@@ -218,4 +218,16 @@ public class CensusAnalyzerTest {
 		} catch (CSVException e) {
 		}
 	}
+	
+	@Test
+	public void givenIndianCensusDataWhenSortedShouldMatchAreaResult() {
+		try {
+			CSVStateCensus csvStateCensus = new CSVStateCensus();
+			List<IndianCensusCSV> sortedList = csvStateCensus
+					.sortAccordingToStateArea(INDIA_CENSUS_CSV_FILE_PATH);
+			Assert.assertEquals(342239, sortedList.get(0).areaInSqKm);
+			Assert.assertEquals(36, sortedList.size());
+		} catch (CSVException e) {
+		}
+	}
 }
