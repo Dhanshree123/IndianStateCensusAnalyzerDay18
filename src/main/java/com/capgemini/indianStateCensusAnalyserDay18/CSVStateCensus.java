@@ -22,6 +22,8 @@ public class CSVStateCensus {
 	public static final String JSON_FILE_SORT_STATE = "C:\\Users\\Admin\\eclipse-workspace\\IndianStateCensusAnalyserDay18\\SortedStateName.json";
 	public static final String JSON_FILE_SORT_STATE_CODE = "C:\\Users\\Admin\\eclipse-workspace\\IndianStateCensusAnalyserDay18\\SortedStateCode.json";
 	public static final String JSON_FILE_SORT_STATE_POPULATION = "C:\\Users\\Admin\\eclipse-workspace\\IndianStateCensusAnalyserDay18\\SortedStatePopulation.json";
+	public static final String JSON_FILE_SORT_STATE_POPULATION_DENSITY= "C:\\Users\\Admin\\eclipse-workspace\\IndianStateCensusAnalyserDay18\\SortedStatePopulationDensity.json";
+	
 	public List<IndianCensusCSV> indianCensusCSVList;
 	public List<IndianStateCodeCSV> indianStateCodeCSVList;
 
@@ -204,6 +206,33 @@ public class CSVStateCensus {
 
 		try {
 			writer = new FileWriter(JSON_FILE_SORT_STATE_POPULATION);
+			writer.write(json);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sortedList;
+	}
+
+	public List<IndianCensusCSV> sortAccordingToStatePopulationDensity(String csvFilePath) throws CSVException {
+		Reader reader = null;
+		try {
+			reader = Files.newBufferedReader(Paths.get(csvFilePath));
+			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+			indianCensusCSVList = csvBuilder.getCsvFileList(reader, IndianCensusCSV.class);
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		List<IndianCensusCSV> sortedList = indianCensusCSVList.stream()
+				.sorted((p1, p2) -> Integer.compare(p1.densityPerSqKm, p2.densityPerSqKm)).collect(Collectors.toList());
+		Collections.reverse(sortedList);
+		Gson gson = new Gson();
+		String json = gson.toJson(sortedList);
+		FileWriter writer;
+
+		try {
+			writer = new FileWriter(JSON_FILE_SORT_STATE_POPULATION_DENSITY);
 			writer.write(json);
 			writer.close();
 		} catch (IOException e) {

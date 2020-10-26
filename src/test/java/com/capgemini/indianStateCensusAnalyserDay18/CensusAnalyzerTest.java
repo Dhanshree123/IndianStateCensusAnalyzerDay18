@@ -199,8 +199,21 @@ public class CensusAnalyzerTest {
 	public void givenIndianCensusDataWhenSortedShouldMatchPopulationResult() {
 		try {
 			CSVStateCensus csvStateCensus = new CSVStateCensus();
-			List<IndianCensusCSV> sortedList = csvStateCensus.sortAccordingToStatePopulation(INDIA_CENSUS_CSV_FILE_PATH);
+			List<IndianCensusCSV> sortedList = csvStateCensus
+					.sortAccordingToStatePopulation(INDIA_CENSUS_CSV_FILE_PATH);
 			Assert.assertEquals(199812341, sortedList.get(0).population);
+			Assert.assertEquals(36, sortedList.size());
+		} catch (CSVException e) {
+		}
+	}
+
+	@Test
+	public void givenIndianCensusDataWhenSortedShouldMatchPopulationDensityResult() {
+		try {
+			CSVStateCensus csvStateCensus = new CSVStateCensus();
+			List<IndianCensusCSV> sortedList = csvStateCensus
+					.sortAccordingToStatePopulationDensity(INDIA_CENSUS_CSV_FILE_PATH);
+			Assert.assertEquals(11297, sortedList.get(0).densityPerSqKm);
 			Assert.assertEquals(36, sortedList.size());
 		} catch (CSVException e) {
 		}
