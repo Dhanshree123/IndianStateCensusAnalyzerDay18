@@ -194,4 +194,15 @@ public class CensusAnalyzerTest {
 		} catch (CSVException e) {
 		}
 	}
+
+	@Test
+	public void givenIndianCensusDataWhenSortedShouldMatchPopulationResult() {
+		try {
+			CSVStateCensus csvStateCensus = new CSVStateCensus();
+			List<IndianCensusCSV> sortedList = csvStateCensus.sortAccordingToStatePopulation(INDIA_CENSUS_CSV_FILE_PATH);
+			Assert.assertEquals(199812341, sortedList.get(0).population);
+			Assert.assertEquals(36, sortedList.size());
+		} catch (CSVException e) {
+		}
+	}
 }
